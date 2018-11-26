@@ -38,7 +38,7 @@ public class InternetasImpl implements Internetas {
         public int compare(InternetasImpl o1, InternetasImpl o2) {
             double InternetasImpl1 = o1.getMokestisUzTVProgramuPaketa();
             double InternetasImpl2 = o2.getMokestisUzTVProgramuPaketa();
-            return Double.compare(InternetasImpl1,InternetasImpl2);
+            return Double.compare(InternetasImpl2,InternetasImpl1);
         }
     };
 

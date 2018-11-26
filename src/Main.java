@@ -5,7 +5,8 @@ import java.util.Iterator;
 public class Main {
 
     public static void main(String[] args) {
-        InternetasImpl telia1 = new InternetasImpl(InternetoPlanas.mini, 5.15,
+
+        InternetasImpl telia1 = new InternetasImpl(InternetoPlanas.mini, 55.15,
                 15.15, 9.99);
         InternetasImpl telia2 = new InternetasImpl(InternetoPlanas.mini, 6.16,
                 16.16, 9.99);
@@ -28,36 +29,38 @@ public class Main {
 
         ArrayList<InternetasImpl> planai = pridetiSaskaitaYSarasa(telia1, telia2, telia3, telia4, telia5, telia6, telia7, telia8, telia9, telia10);
 
-        System.out.println("srasas atspausdintas paprastai");
-        System.out.println(planai);
-
         System.out.println("sarasas atspausdintas naudojant enhanced for");
         //enhanced for
-        for (InternetasImpl planas : planai)
-            System.out.println(planas);
+        atspausdintiSarasoAntraste();
+        atspausdintiSarasa(planai);
+        atspausdintiSarasoPoraste();
 
-        //mokesciu suma
-        for (InternetasImpl planas : planai)
-            System.out.println("suma = " + mokesciuSuma(planas));
 
         //pasalinti objektus, kuriu interneto planas yra maxi arba supermaxi ir atspausdinti
         System.out.println("Is saraso pasalintos saskaitos, kuriu interneto planai yra maxi arba supermaxi");
-        Iterator<InternetasImpl> iterator1 = planai.iterator();
+        ArrayList<InternetasImpl> planai1 = planai;
+        Iterator<InternetasImpl> iterator1 = planai1.iterator();
         while (iterator1.hasNext()){
             InternetasImpl planas = iterator1.next();
             if(planas.getInternetoPlanas()==InternetoPlanas.maxi||planas.getInternetoPlanas()==InternetoPlanas.supermaxi){
                 iterator1.remove();
             }
         }
-        for (InternetasImpl planas : planai)
-            System.out.println(planas);
+        atspausdintiSarasoAntraste();
+        atspausdintiSarasa(planai1);
+        atspausdintiSarasoPoraste();
+
+        System.out.println("sarasas atspausdintas naudojant enhanced for");
+        //enhanced for
+        atspausdintiSarasoAntraste();
+        atspausdintiSarasa(planai1);
+        atspausdintiSarasoPoraste();
 
         //surusiuoti objektus pagal mokesti uz tvprogramu paketa
 
         System.out.println("surusiuoti objektus pagal mokesti uz tvprogramu paketa");
 
         Collections.sort(planai, InternetasImpl.TVComparator);
-        Collections.sort(planai,InternetasImpl.TVComparator);
 
         for(InternetasImpl planas:planai){
             System.out.println(planas);
@@ -82,5 +85,38 @@ public class Main {
         double suma = saskaita.getMokestisUzMobiluInterneta()
                  + saskaita.getMokestisUzNamuInternetas();
         return suma;
+    }
+
+    public static void atspausdintiSarasoAntraste() {
+        System.out.printf("%-4s%-20s%-20s%-20s%-20s\n",
+                "Nr.",
+                "Interneto Planas ",
+                "Mokestis uz TV ",
+                "Mokestis uz LAN",
+                "Mokestis uz Phone "
+        );
+        for (int i = 0; i < 110; i++) {
+            System.out.print("-");
+        }
+        System.out.println();
+    }
+
+    public static void atspausdintiSarasoPoraste() {
+        for (int i = 0; i < 110; i++) {
+            System.out.print("-");
+        }
+        System.out.println();
+    }
+
+    public static void atspausdintiSarasa(ArrayList<InternetasImpl> planai) {
+        for (int i = 0; i < planai.size(); i++) {
+            System.out.printf("%-4s%-20s%-20s%-20s%-20s\n",
+                    i + 1,
+                    planai.get(i).getInternetoPlanas(),
+                    planai.get(i).getMokestisUzTVProgramuPaketa(),
+                    planai.get(i).getMokestisUzNamuInternetas(),
+                    planai.get(i).getMokestisUzMobiluInterneta()
+            );
+        }
     }
 }
